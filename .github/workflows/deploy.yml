@@ -1,4 +1,4 @@
-name: Deploy to RupaCloud (Node.js (Express / NestJS / API))
+name: Deploy to RupaCloud (Next.js)
 
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
           RESPONSE=$(curl -s -X POST "$DEPLOY_URL" \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer $DEPLOY_TOKEN" \
-            -d "{\"repo\":\"${{ github.repository }}\",\"branch\":\"main\",\"commitSha\":\"${{ github.sha }}\",\"actor\":\"${{ github.actor }}\",\"frameworkId\":\"nodejs_api\",\"port\":3000}")
+            -d "{\"repo\":\"${{ github.repository }}\",\"branch\":\"main\",\"commitSha\":\"${{ github.sha }}\",\"actor\":\"${{ github.actor }}\",\"frameworkId\":\"nextjs\",\"port\":3000}")
 
           JOB_ID=$(echo "$RESPONSE" | grep -o '"jobId":"[^"]*' | cut -d'"' -f4)
           if [ -z "$JOB_ID" ]; then
@@ -88,11 +88,11 @@ jobs:
           cat << 'EOF' >> $GITHUB_STEP_SUMMARY
           ## ☁️ RuPa Cloud - Ringkasan Deployment
           ### ✅ Deployment Berhasil!
-          Aplikasi **Node.js (Express / NestJS / API)** berhasil di-build dan aktif berjalan di container RuPa Cloud.
+          Aplikasi **Next.js** berhasil di-build dan aktif berjalan di container RuPa Cloud.
 
           | Parameter | Informasi |
           | :--- | :--- |
-          | 📦 Framework | Node.js (Express / NestJS / API) |
+          | 📦 Framework | Next.js |
           | 🌿 Branch | main |
           | 🔖 Commit SHA | ${{ github.sha }} |
           | 👤 Dipicu Oleh | ${{ github.actor }} |
